@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} KFUPMbot {% endblock title %}
+{% block head %} <script src="{{ url_for('static', filename='js/chat.js') }}" defer></script> {% endblock head %}
+
+{% block body %}
+<main style="height: 100%;">
+    <div class="container" style="height: 100%; width: 100%">
+        <div class="row" style="height: 100%; ">
+            <div class="col-12 col-lg-10 offset-lg-1 col-xxl-8 offset-xxl-2 " style="height: 100%;">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header ">
+                        <h3>KFUPMbot</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="imessage" id="chatbox">
+                            <p class="from-bot">Hi! I am KFUPMbot. How can I help you?</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="input-area">
+                            <textarea class="form-control" id="user-input-area" placeholder="Type your message here"></textarea>
+                            <div class="center">
+                                <button class="btn" id="send" onclick="sendMessage()"><i class="fa fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock body %}
+

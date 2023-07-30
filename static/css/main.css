@@ -1,0 +1,182 @@
+body {
+    background-image: url('/static/images/uni.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.input-area {
+    background-color: #ffffff00;
+    display: flex;
+    padding: 0.5rem 1rem;
+    border-radius: 1.25rem;
+}
+
+#user-input-area {
+    overflow: hidden;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    min-height: 2.75rem;
+    max-height: 8.25rem;
+    height: 2.75rem;
+    width:100%; 
+    display:block;
+    margin-right: 0.5rem;
+    resize: none;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#send {
+    background-color: #007d41;
+    color: #ffffff;
+    border-radius: 5rem;
+    margin-left: 0.5rem;
+    height: 2.75rem;
+    width: 2.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-header{
+    background-color: #007d41;
+    color: #ffffff;
+    border-radius: 0.2rem;
+}
+
+.card{
+    background-color: #fffffff5;
+}
+
+.card-body{
+    background-color: #ffffff00;
+    border-radius: 1.25rem;
+    overflow-y:auto;
+}
+
+.form-control{
+    border-radius: 1.25rem;
+}
+
+#send{
+    border-radius: 1.25rem;
+}
+
+/* Chat Bubbles */
+.imessage {
+    background-color: #ffffff00;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: auto;
+    font-size: 1.2rem;
+    margin: 0 auto 1rem;
+    /* max-width: 600px; */
+    padding: 0.5rem 1.5rem;
+}
+    
+.imessage p {
+    border-radius: 1.15rem;
+    line-height: 1.25;
+    max-width: 80%;
+    padding: 0.5rem .875rem;
+    position: relative;
+    word-wrap: break-word;
+    display: inline-block;
+    direction: rtl;
+}
+
+.imessage p::before,
+.imessage p::after {
+    bottom: -0.1rem;
+    content: "";
+    height: 1rem;
+    position: absolute;
+}
+
+p.from-user {
+    align-self: flex-end;
+    background-color: #007d41;
+    color: #fff; 
+}
+
+p.from-user::before {
+    border-bottom-left-radius: 0.8rem 0.7rem;
+    border-right: 1rem solid #007d41;
+    right: -0.35rem;
+    transform: translate(0, -0.1rem);
+}
+
+p.from-user::after {
+    background-color: #fff;
+    border-bottom-left-radius: 0.5rem;
+    right: -40px;
+    transform:translate(-30px, -2px);
+    width: 10px;
+}
+
+p[class^="from-"] {
+    margin: 0.5rem 0;
+    width: fit-content;
+}
+
+p.from-user ~ p.from-user {
+    margin: 0.25rem 0 0;
+}
+
+p.from-user ~ p.from-user:not(:last-child) {
+    margin: 0.25rem 0 0;
+}
+
+p.from-user ~ p.from-user:last-child {
+    margin-bottom: 0.5rem;
+}
+
+p.from-bot {
+    align-items: flex-start;
+    background-color: #e5e5ea;
+    color: #000;
+}
+
+p.from-bot:before {
+    border-bottom-right-radius: 0.8rem 0.7rem;
+    border-left: 1rem solid #e5e5ea;
+    left: -0.35rem;
+    transform: translate(0, -0.1rem);
+}
+
+p.from-bot::after {
+    background-color: #fff;
+    border-bottom-right-radius: 0.5rem;
+    left: 20px;
+    transform: translate(-30px, -2px);
+    width: 10px;
+}
+
+p[class^="from-"].emoji {
+    background: none;
+    font-size: 2.5rem;
+}
+
+p[class^="from-"].emoji::before {
+    content: none;
+}
+
+.no-tail::before {
+    display: none;
+}
+
+.margin-b_none {
+    margin-bottom: 0 !important;
+}
+
+.margin-b_one {
+    margin-bottom: 1rem !important;
+}
+
+.margin-t_one {
+    margin-top: 1rem !important;
+}
