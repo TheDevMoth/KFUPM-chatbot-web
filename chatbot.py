@@ -114,7 +114,7 @@ def _decide(history, category, language="arabic", verbose=False):
     for i in category:
         func_set.add(switch[i])
     for i in func_set:
-        prompt += switch[i](history, verbose=verbose, language=language) + "\n"
+        prompt += i(history, verbose=verbose, language=language)
 
     prompt += f"Student question: ```{history[-1]['content']}```"
 
