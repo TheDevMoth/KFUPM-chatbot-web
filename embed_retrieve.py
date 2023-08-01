@@ -120,6 +120,7 @@ def retrieve_context(question, k=3, language='arabic'):
         
         returns: a list of k retrieved contexts, a list of k cosine similarities
     '''
+    language = 'english' # ! for now
     context_embeddings = np.array(list(context_dict[language].values()))
     if language == 'arabic':
         question = _preprocess_arabic_text(question)

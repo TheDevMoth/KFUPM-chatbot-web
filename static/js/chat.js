@@ -9,6 +9,10 @@ function appendMessageToChatbox(message, fromUser) {
     } else {
         paragraph.classList.add("from-bot");
     }
+    const arabic = /[\u0600-\u06FF]/;
+    if (arabic.test(message)) {
+        paragraph.classList.add("arabic");
+    }
     chatbox.appendChild(paragraph);
 }
 

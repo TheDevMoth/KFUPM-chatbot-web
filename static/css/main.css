@@ -86,7 +86,6 @@ body {
     position: relative;
     word-wrap: break-word;
     display: inline-block;
-    direction: rtl;
 }
 
 .imessage p::before,
@@ -101,6 +100,11 @@ p.from-user {
     align-self: flex-end;
     background-color: #007d41;
     color: #fff; 
+}
+
+p.arabic {
+    direction: rtl;
+    text-align: right;
 }
 
 p.from-user::before {

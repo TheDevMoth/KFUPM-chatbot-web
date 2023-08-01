@@ -47,6 +47,7 @@ def _get_language(history, verbose=False):
     answer = re.match(r"\[([^]]*)\]", response).group(1)
     
     if verbose:
+        print("### Language ###")
         print("Prompt: \n", prompt)
         print("Response: \n", response)
         print("using " + "arabic" if answer == "yes" else "english")
@@ -103,24 +104,32 @@ def _decide(history, category, language="arabic", verbose=False):
         Category.REGISTRATION.value: _retrieve,
         Category.SMALLTALK.value: _small_talk,
         Category.UNRELATED.value: _unrelated,
-        Category.OTHER.value: _ummm
+        Category.OTHER.value: _retrieve
     }
     prompt = ""
     if any([i in category for i in [Category.RULES.value, Category.REGISTRATION.value, Category.SCHEDULE.value]]):
         prompt += "Write a detailed answer to the student question in the same language as the student using information provided: \n"
 
+    func_set = set()
     for i in category:
+        func_set.add(switch[i])
+    for i in func_set:
         prompt += switch[i](history, verbose=verbose, language=language) + "\n"
-    
+
     prompt += f"Student question: ```{history[-1]['content']}```"
 
     history[-1]["content"] = prompt
-    response = _get_completion_from_messages(history, temperature=0.3)
+    response = _get_completion_from_messages(history, temperature=0.7)
+
+    if verbose:
+        print("### Decision ###")
+        print("Response: \n", response)
+
     return response
     
 def _retrieve(history, verbose=False, language="arabic"):
     question = history[-1]["content"]
-    context, similarity = retrieve_context(question, k=2, language=language)
+    context, similarity = retrieve_context(question, k=3, language=language)
     # TODO add thresholds and decisions
     text = f"handbook context: ```{context}```"
 
