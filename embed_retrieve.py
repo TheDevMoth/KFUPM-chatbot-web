@@ -5,6 +5,10 @@ import string
 import numpy as np
 import os
 from sentence_transformers import SentenceTransformer
+import tiktoken
+
+SOFT_MAX_TOKENS = 512
+HARD_MAX_TOKENS = 640
 
 def _xhash(x):
     return xxhash.xxh64(x, seed=42).hexdigest()
@@ -91,6 +95,7 @@ def _read_json(json_file_path):
         return {}
 
 model = SentenceTransformer('sentence-transformers/distiluse-base-multilingual-cased-v2')
+tokenizer = tiktoken.encoding_for_model('gpt-3.5-turbo')
 
 def _get_sentence_embeddings(sentences):
     '''
@@ -131,4 +136,27 @@ def retrieve_context(question, k=3, language='arabic'):
     top_k_cosine_similarities = [cosine_similarities[i] for i in top_k_context_indices]
 
     return top_k_contexts, top_k_cosine_similarities
+
+def smart_retrieve(question, language='arabic', max_tokens=SOFT_MAX_TOKENS, hard_max_tokens=HARD_MAX_TOKENS):
+    '''
+    decide how many contexts to retrieve based on their length
     
+    question: string
+    language: 'arabic' or 'english'
+    
+    returns: a list of retrieved contexts, a list of cosine similarities
+    '''
+    context, similarity = retrieve_context(question, k=10, language=language)
+    score = 1.0
+    i = 0
+    total_tokens = 0
+    while score > 0 and i < len(context) and total_tokens < max_tokens:
+        context_tokens = len(tokenizer.encode(context[i]))
+        score -= (np.e**(context_tokens / max_tokens - 1)) * 2 * similarity[i]
+        total_tokens += context_tokens
+        i += 1
+
+    if total_tokens > hard_max_tokens:
+        i -= 1
+        
+    return context[:i], similarity[:i]

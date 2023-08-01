@@ -4,7 +4,7 @@ import re
 import openai
 import pprint
 
-from embed_retrieve import retrieve_context
+from embed_retrieve import retrieve_context, smart_retrieve
 from enums import Category, CATE_STRING
 from schedule import get_schedule
 
@@ -129,8 +129,7 @@ def _decide(history, category, language="arabic", verbose=False):
     
 def _retrieve(history, verbose=False, language="arabic"):
     question = history[-1]["content"]
-    context, similarity = retrieve_context(question, k=3, language=language)
-    # TODO add thresholds and decisions
+    context, similarity = smart_retrieve(question, language=language)
     text = f"handbook context: ```{context}```"
 
     if verbose:
